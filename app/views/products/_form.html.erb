@@ -1,0 +1,39 @@
+<%= form_for @product, :html => { :class => 'form-horizontal' } do |f| %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product.errors.count, "errore") %> impiden realizar este cálculo:</h2>
+      <ul>
+      <% @product.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% end %>
+
+<%= form_for(@product) do |f| %>
+	<div class="form-group">
+    <%= f.label :category_id %>
+    <%= f.select :category_id, Category.all.collect { |p| [ p.nombre, p.id ] }, include_blank: false %>
+    </div>
+	<div class="form-group">
+		<%= f.label :title, "Nombre" %>
+		<%= f.text_field :title, class: 'form-control' %>
+	</div>
+	<div class="form-group">
+		<%= f.label :price, "Precio" %>
+		<%= f.text_field :price, class: 'form-control', min: 1 %>
+	</div>
+	<div class="form-group">
+		<%= f.label :Stock, "Stock" %>
+		<%= f.text_field :stock, class: 'form-control' %>
+	</div>
+	<div class="form-group">
+		<%= f.label :Descripcion, "descripcion" %>
+		<%= f.text_area :descripcion, class: 'form-control', size: "30x10" %>
+	</div>
+	<div class="field">
+    <%= f.file_field :image, id: :image %>
+  </div>
+	<%= f.submit "Save", class: 'btn btn-success' %>
+<%end%>

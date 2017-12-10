@@ -1,0 +1,32 @@
+<h1>Todas Nuestras Categorias</h1>
+
+    <% @categories.each do |category| %>
+      <div class="pb-left-column col-xs-12 col-sm-12 col-md-4"">
+    <div class="row">
+      <div class="col-sm-6 col-sm-12">
+        <h3><%= category.nombre %></h3>
+        <h4><%= category.descripcion %></h4>
+        <img><%= image_tag category.image.url(:medium) %></img>
+      </div>
+      <div class="col-sm-6">
+        <div class="col-sm-6">
+          <% if user_signed_in? and current_user.role=='admin'%>
+          <%= link_to 'Edit', edit_category_path(category) %>
+          <%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%end%>
+          <%= link_to 'Show', category %>
+        </div>
+      </div>
+    </div>
+  </div>
+    <% end %>
+
+<div class="col-sm-6 col-sm-12">
+  <% if user_signed_in? and current_user.role=='admin'%>
+<%= link_to 'New Category', new_category_path %>
+<%end%>
+
+</div>
+<ul class="pagination justify-content-center">
+        <%= will_paginate @product, renderer: BootstrapPagination::Rails  %>
+      </ul>
